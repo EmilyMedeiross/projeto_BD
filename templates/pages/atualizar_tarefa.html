@@ -2,11 +2,36 @@
 
 {% block navbar %}
 <h2><a href="{{url_for('index')}}">Home</a></h1>
-<h2><a href="{{url_for('criar_tarefa')}}">Criar Tarefa</a></h2>
+<h2><a href="#">Atualizar terefa</a></h2>
 <h2><a href="{{url_for('listar_tarefa')}}">Listar Tarefa</a></h2>
-<h2><a href="#">Atualizar Tarefa</a></h2>
+<h2><a href="{{url_for('criar_tarefa')}}">Criar Tarefa </a></h2>
+<h2><a href="{{url_for('deletar')}}">Deletar Tarefa </a></h2>
+
 {% endblock %}
 
 {% block conteudo %}
+    
+<form action="{{url_for('atualizar_tarefa')}}" method="POST" class="formLogin">
+    <label for="nome"> Nome da Tarefa: </label>
+    <input type="text" name="nome" placeholder="Digite o nome da tarefa">
+
+    <label for="descriçao"> Descrição: </label>
+    <input type="text" name="descriçao" placeholder="Digite uma descrição">
+
+    <label for="status"> Status: </label>
+    <input type="text" name="status" placeholder="Digite o status da tarefa" list="status">
+        <select id="status" required name="=status">
+            <option value="Concluída">Concluída</option>
+            <option value="Em andamento">Em andamento</option>
+            <option value="Pendente">Pendente</option>
+        </select>
+    </input>
+
+
+    <label for="prazo"> Prazo: </label>
+    <input type="number" name="prazo" placeholder="Digite o prazo da tarefa (dias)">
+
+    <button class="button-favoritos">Enviar</button>
+</form>
 
 {% endblock %}
