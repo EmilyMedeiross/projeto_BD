@@ -1,6 +1,8 @@
 from flask_login import UserMixin
+import mysql
+import _mysql_connector as mysql
 from werkzeug.security import generate_password_hash, check_password_hash
-#import mysql.connector
+
 
 def obter_conexao():
     return mysql.connector.connect(
@@ -20,16 +22,23 @@ class User(UserMixin):
             self._senha = kwargs['senha']
         if 'hash' in kwargs.keys():
             self._hash = kwargs['hash']
-        if 'titulo' in kwargs.keys():
-            self._titulo = kwargs['titulo']
-        if 'autor' in kwargs.keys():
-            self._autor = kwargs['autor']
-        if 'livro' in kwargs.keys():
-            self._livro = kwargs['livro']
-        if 'escritor' in kwargs.keys():
-            self._escritor = kwargs['escritor']
-
-
+        if 'nome' in kwargs.keys():
+            self._nome = kwargs['nome']
+        if 'descricao' in kwargs.keys():
+            self._descricao = kwargs['descricao']
+        if 'situacao' in kwargs.keys():
+            self._situacao = kwargs['situacao']
+        if 'data_criacao' in kwargs.keys():
+            self._data_criacao = kwargs['data_criacao']
+        if 'prazo' in kwargs.keys():
+            self._prazo = kwargs['prazo']
+        if 'prioridade' in kwargs.keys():
+            self._prioridade = kwargs['prioridade']
+        if 'palavra_chave' in kwargs.keys():
+            self._palavra_chave = kwargs['palavra_chave']
+        if 'categoria' in kwargs.keys():
+            self._categoria = kwargs['categoria']
+        
     def get_id(self):
         return str(self._id)
 
@@ -52,40 +61,38 @@ class User(UserMixin):
         conn.close()
         return True
     
-    def save_recomendacoes(self):        
+    def save_tarefas(self):        
         conn = obter_conexao()  
         cursor = conn.cursor(dictionary=True)      
-        cursor.execute("INSERT INTO recomendacoes(titulo, autor) VALUES (%s, %s)", (self._titulo, self._autor,))
+        cursor.execute ("INSERT INTO tarefas(nome, descricao, situacao, data_criacao, prazo, prioridade, palavra_chave, categoria) VALUES(%s, %s, %s, %s, %s, %s, %s, %s)", (self.nome, self.descricao, self.situacao, self.data_criacao, self.prazo, self.prioridade, self.palavra_chave, self.categoria,))
         conn.commit()
         conn.close()
         return True
     
-    def all_recomendacoes(cls):
+    def listar_tarefas(cls):
         conn = obter_conexao()
         cursor = conn.cursor(dictionary=True)
-        cursor.execute("SELECT titulo, autor FROM recomendacoes")
-        recomendacoes = cursor.fetchall()
-        conn.commit()
+        cursor.execute("SELECT * FROM pecas")
+        tarefas = conn.fetchall()
         conn.close()
-        return recomendacoes
+        return tarefas
     
      
-    def save_favoritos(self):        
+    def deletar_tarefas(self):        
         conn = obter_conexao()  
         cursor = conn.cursor(dictionary=True)      
-        cursor.execute("INSERT INTO favoritos(livro, escritor) VALUES (%s, %s)", (self._livro, self._escritor,))
-        conn.commit()
+        cursor.execute("DELETE FROM pecas WHERE id = %s", (id,))
         conn.close()
         return True
     
-    def all_favoritos(cls):
+    """def all_favoritos(cls):
         conn = obter_conexao()
         cursor = conn.cursor(dictionary=True)
         cursor.execute("SELECT livro, escritor FROM favoritos")
         favoritos = cursor.fetchall()
         conn.commit()
         conn.close()
-        return favoritos
+        return favoritos"""
     
     @classmethod
     def get(cls,user_id):
