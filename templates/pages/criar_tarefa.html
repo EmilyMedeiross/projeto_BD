@@ -1,0 +1,57 @@
+{% extends 'modelo.html' %}
+
+{% block navbar %}
+<h2><a href="{{url_for('index')}}">Home</a></h1>
+<h2><a href="#">Criar Tarefa</a></h2>
+<h2><a href="{{url_for('listar_tarefa')}}">Listar Tarefa</a></h2>
+<h2><a href="{{url_for('atualizar_tarefa')}}">Atualizar Tarefa</a></h2>
+{% endblock %}
+
+{% block conteudo %}
+    
+<form action="{{url_for('criar_tarefa')}}" method="POST" class="formLogin">
+    <label for="nome"> Nome: </label>
+    <input type="text" name="nome" placeholder="Digite o nome da tarefa">
+
+    <label for="descriçao"> Descrição: </label>
+    <input type="text" name="descriçao" placeholder="Digite uma descrição">
+
+    <label for="satus"> Status: </label>
+    <input type="text" name="status" placeholder="Digite o status da tarefa" list="status">
+        <datalist id="status">
+            <option value="Concluída"></option>
+            <option value="Em andamento"></option>
+            <option value="Pendente"></option>
+        </datalist>
+    </input>
+
+    <label for="data_criação"> Data de Criação: </label>
+    <input type="date" name="data_criação" placeholder="Digite o status da tarefa">
+
+    <label for="prazo"> Prazo: </label>
+    <input type="number" name="prazo" placeholder="Digite o prazo da tarefa (dias)">
+
+    <label for="prioridade"> Prioridade: </label>
+    <input type="text" name="prioridade" placeholder="Escolha qual a prioridade da tarefa" list="prioridade">
+        <datalist id="prioridade">
+            <option value="Baixa"></option>
+            <option value="Média"></option>
+            <option value="Alta"></option>
+        </datalist>
+    </input>
+
+    <label for="palavra_chave"> Palavra Chave: </label>
+    <input type="text" name="palavra_chave" placeholder="Digite uma palavra chave">
+
+    <label for="categoria"> Categoria: </label>
+    <input type="text" name="categoria" placeholder="Defina qual a categoria da tarefa" list="categoria">
+        <datalist id="categoria">
+            <option value="Trabalho"></option>
+            <option value="Estudo"></option>
+            <option value="Pessoal"></option>
+        </datalist>
+    </input>
+    <button class="button-favoritos">Enviar</button>
+</form>
+
+{% endblock %}
