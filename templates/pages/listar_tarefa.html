@@ -5,8 +5,24 @@
 <h2><a href="{{url_for('criar_tarefa')}}">Criar Tarefa</a></h2>
 <h2><a href="#">Listar Tarefa</a></h2>
 <h2><a href="{{url_for('atualizar_tarefa')}}">Atualizar Tarefa</a></h2>
+<h2><a href="{{url_for('deletar')}}">Deletar Tarefa </a></h2>
 {% endblock %}
 
 {% block conteudo %}
+    
+<form action="{{url_for('atualizar_tarefa')}}" method="POST" class="formLogin">
+
+    <label for="status"> Deseja listar por: </label>
+    <select id="status" required name="status" name="status">
+            <option value="status">Status</option>
+            <option value="data">Data</option>
+            <option value="prazo">Prazo</option>
+            <option value="prioridade">Prioridade</option>
+            <option value="descrição">Descrição</option>
+            <option value="categoria">Categoria</option>
+    </select>
+    <button class="button-favoritos">Enviar</button>
+</form>
+
 
 {% endblock %}
