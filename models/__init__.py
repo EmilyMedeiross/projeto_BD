@@ -128,5 +128,16 @@ class User(UserMixin):
             return True
         else:
             return False
+            
+    @classmethod
+    def get_by_email(cls,email):
+        conn = obter_conexao()
+        cursor = conn.cursor(dictionary=True) 
+        cursor.execute("SELECT id, email, senha FROM users WHERE email = %s", (email,))
+        user = cursor.fetchone() 
+        conn.commit()
+        conn.close()
+    
+        return user
     
     
