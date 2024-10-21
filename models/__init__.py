@@ -100,16 +100,7 @@ class User(UserMixin):
         cursor.execute("DELETE FROM tb_tarefas WHERE tar_id = %s", (id,))
         conn.close()
         return True
-    
-    """def all_favoritos(cls):
-        conn = obter_conexao()
-        cursor = conn.cursor(dictionary=True)
-        cursor.execute("SELECT livro, escritor FROM favoritos")
-        favoritos = cursor.fetchall()
-        conn.commit()
-        conn.close()
-        return favoritos"""
-    
+ 
     @classmethod
     def get(cls,user_id):
         conn = obter_conexao()
@@ -139,14 +130,3 @@ class User(UserMixin):
             return False
     
     
-    
-    @classmethod
-    def get_by_email(cls,email):
-        conn = obter_conexao()
-        cursor = conn.cursor(dictionary=True) 
-        cursor.execute("SELECT use_id, use_email, use_senha FROM tb_users WHERE use_email = %s", (email,))
-        user = cursor.fetchone() 
-        conn.commit()
-        conn.close()
-    
-        return user
