@@ -75,7 +75,7 @@ class User(UserMixin):
         SET tar_descricao = %s, tar_situacao = %s, 
             tar_data_criacao = %s, tar_prazo = %s, tar_prioridade = %s, 
             tar_palavra_chave = %s, tar_categoria = %s
-        WHERE tar_nome = %s,;
+        WHERE tar_nome = %s;
         """
         valores = (self._descricao, self._situacao, 
                self._data_criacao, self._prazo, self._prioridade, 
@@ -85,7 +85,8 @@ class User(UserMixin):
         conn.commit()
         conn.close()
         return True
-        
+
+    @classmethod
     def listar_tarefas(cls):
         conn = obter_conexao()
         cursor = conn.cursor(dictionary=True)
@@ -93,7 +94,7 @@ class User(UserMixin):
         tarefas = conn.fetchall()
         conn.close()
         return tarefas
-    
+
     def deletar_tarefas(self):        
         conn = obter_conexao()  
         cursor = conn.cursor(dictionary=True)      
@@ -111,7 +112,7 @@ class User(UserMixin):
         conn.close()
         if user:
             loaduser = User(email=user['email'] , senha=user['senha'])
-            loaduser._id = user['id']
+            loaduser._id = user['user_id']
             return loaduser
         else:
             return None
