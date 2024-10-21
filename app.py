@@ -73,7 +73,18 @@ def criar_tarefa():
 
 @app.route('/atualizar_tarefa')
 def atualizar_tarefa():
-    
+     if request.method == 'POST':
+
+        nome = request.form['nome']
+        descricao = request.form['descriçao']
+        situacao = request.form['status']
+        data_criacao = request.form['data_criação']
+        prazo = request.form['prazo']
+        prioridade = request.form['prioridade']
+        palavra_chave = request.form['palavra_chave']
+        categoria = request.form['categoria']
+        tarefas = User(nome=nome, descricao=descricao, situacao=situacao, data_criacao=data_criacao, prazo=prazo, prioridade=prioridade, palavra_chave=palavra_chave, categoria=categoria, tarefas=tarefas)
+        tarefas.atualizar_tarefas 
     return render_template("pages/atualizar_tarefa.html")
 
 
