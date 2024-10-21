@@ -1,6 +1,7 @@
+
 from flask_login import UserMixin
 import mysql
-import _mysql_connector as mysql
+import mysql.connector 
 from werkzeug.security import generate_password_hash, check_password_hash
 
 def obter_conexao():
@@ -37,6 +38,8 @@ class User(UserMixin):
             self._palavra_chave = kwargs['palavra_chave']
         if 'categoria' in kwargs.keys():
             self._categoria = kwargs['categoria']
+
+  
         
     def get_id(self):
         return str(self._id)
@@ -111,11 +114,12 @@ class User(UserMixin):
         conn.commit()
         conn.close()
         if user:
-            loaduser = User(email=user['email'] , senha=user['senha'])
-            loaduser._id = user['user_id']
+            loaduser = User(email=user['use_email'] , senha=user['use_senha'])
+            loaduser._id = user['use_id']
             return loaduser
         else:
             return None
+        
     
     @classmethod
     def exists(cls, email):
