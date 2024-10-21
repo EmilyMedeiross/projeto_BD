@@ -40,8 +40,8 @@ def login():
         senha = request.form['senha']   
         user = User.get_by_email(email)
 
-        if user and check_password_hash(user['senha'], senha):
-            login_user(User.get(user['id']))
+        if user and check_password_hash(user['use_senha'], senha):
+            login_user(User.get(user['use_id']))
             flash("Você está logado")
             return redirect(url_for('criar_tarefa'))
         
@@ -74,7 +74,8 @@ def criar_tarefa():
 
 @app.route('/atualizar_tarefa')
 def atualizar_tarefa():
-     if request.method == 'POST':
+
+    if request.method == 'POST':
 
         nome = request.form['nome']
         descricao = request.form['descriçao']
@@ -86,6 +87,7 @@ def atualizar_tarefa():
         categoria = request.form['categoria']
         tarefas = User(nome=nome, descricao=descricao, situacao=situacao, data_criacao=data_criacao, prazo=prazo, prioridade=prioridade, palavra_chave=palavra_chave, categoria=categoria, tarefas=tarefas)
         tarefas.atualizar_tarefas 
+
     return render_template("pages/atualizar_tarefa.html")
 
 
@@ -102,7 +104,7 @@ def listar_tarefa():
     return render_template('pages/listar_tarefa.html', tarefas=tarefas)"""
 
 
-@app.route('/<int:id>/deletar')
+@app.route('/deletar')
 def deletar():
     if request.method == 'POST':
       tarefa = request.form['tarefa']
