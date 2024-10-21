@@ -49,7 +49,6 @@ class User(UserMixin):
     def _senha(self, senha):
         self._hash = generate_password_hash(senha)
 
-    
     def save(self):        
         conn = obter_conexao()  
         cursor = conn.cursor(dictionary=True)      
@@ -66,7 +65,27 @@ class User(UserMixin):
         conn.commit()
         conn.close()
         return True
-    
+
+    def atualizar_tarefas(self):
+        conn = obter_conexao()  
+        cursor = conn.cursor(dictionary=True)
+        
+        query = """
+        UPDATE tb_tarefas
+        SET tar_nome = %s, tar_descricao = %s, tar_situacao = %s, 
+            tar_data_criacao = %s, tar_prazo = %s, tar_prioridade = %s, 
+            tar_palavra_chave = %s, tar_categoria = %s
+        WHERE id = %s;
+        """
+        valores = (self.nome, self.descricao, self.situacao, 
+               self.data_criacao, self.prazo, self.prioridade, 
+               self.palavra_chave, self.categoria, id_tarefa)
+        
+        cursor.execute (query, valores)
+        conn.commit()
+        conn.close()
+        return True
+        
     def listar_tarefas(cls):
         conn = obter_conexao()
         cursor = conn.cursor(dictionary=True)
@@ -75,7 +94,6 @@ class User(UserMixin):
         conn.close()
         return tarefas
     
-     
     def deletar_tarefas(self):        
         conn = obter_conexao()  
         cursor = conn.cursor(dictionary=True)      
