@@ -61,7 +61,7 @@ class User(UserMixin):
     def save_tarefas(self):        
         conn = obter_conexao()  
         cursor = conn.cursor(dictionary=True)      
-        cursor.execute ("INSERT INTO tb_tarefas(tar_nome, tar_descricao, tar_situacao, tar_data_criacao, tar_prazo, tar_prioridade, tar_palavra_chave, tar_categoria) VALUES(%s, %s, %s, %s, %s, %s, %s, %s)", (self.nome, self.descricao, self.situacao, self.data_criacao, self.prazo, self.prioridade, self.palavra_chave, self.categoria,))
+        cursor.execute ("INSERT INTO tb_tarefas(tar_nome, tar_descricao, tar_situacao, tar_data_criacao, tar_prazo, tar_prioridade, tar_palavra_chave, tar_categoria) VALUES(%s, %s, %s, %s, %s, %s, %s, %s)", (self._nome, self._descricao, self._situacao, self._data_criacao, self._prazo, self._prioridade, self._palavra_chave, self._categoria,))
         conn.commit()
         conn.close()
         return True
@@ -77,9 +77,9 @@ class User(UserMixin):
             tar_palavra_chave = %s, tar_categoria = %s
         WHERE tar_nome = %s,;
         """
-        valores = (self.descricao, self.situacao, 
-               self.data_criacao, self.prazo, self.prioridade, 
-               self.palavra_chave, self.categoria, self.nome)
+        valores = (self._descricao, self._situacao, 
+               self._data_criacao, self._prazo, self._prioridade, 
+               self._palavra_chave, self._categoria, self._nome)
         
         cursor.execute (query, valores)
         conn.commit()
@@ -97,12 +97,12 @@ class User(UserMixin):
     def deletar_tarefas(self):        
         conn = obter_conexao()  
         cursor = conn.cursor(dictionary=True)      
-        cursor.execute("DELETE FROM tb_tarefas WHERE tar_id = %s", (id,))
+        cursor.execute("DELETE FROM tb_tarefas WHERE tar_id = %s", (self._id,))
         conn.close()
         return True
  
     @classmethod
-    def get(cls,user_id):
+    def get(cls, user_id):
         conn = obter_conexao()
         cursor = conn.cursor(dictionary=True)
         cursor.execute("SELECT * FROM tb_users WHERE use_id = %s", (user_id,))
@@ -110,7 +110,7 @@ class User(UserMixin):
         conn.commit()
         conn.close()
         if user:
-            loaduser = User(email=user['email'] , hash=user['senha'])
+            loaduser = User(email=user['email'] , senha=user['senha'])
             loaduser._id = user['id']
             return loaduser
         else:
@@ -130,10 +130,10 @@ class User(UserMixin):
             return False
             
     @classmethod
-    def get_by_email(cls,email):
+    def get_by_email(cls, email):
         conn = obter_conexao()
         cursor = conn.cursor(dictionary=True) 
-        cursor.execute("SELECT id, email, senha FROM users WHERE email = %s", (email,))
+        cursor.execute("SELECT use_id, use_email, use_senha FROM tb_users WHERE use_email = %s", (email,))
         user = cursor.fetchone() 
         conn.commit()
         conn.close()
