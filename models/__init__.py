@@ -9,7 +9,7 @@ def obter_conexao():
         host="localhost",
         user="root",
         password="",
-        database="db_livros"
+        database="db_tarefas"
     )
 
 class User(UserMixin):
