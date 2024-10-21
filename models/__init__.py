@@ -79,7 +79,7 @@ class User(UserMixin):
         """
         valores = (self.nome, self.descricao, self.situacao, 
                self.data_criacao, self.prazo, self.prioridade, 
-               self.palavra_chave, self.categoria, id_tarefa)
+               self.palavra_chave, self.categoria, self._id)
         
         cursor.execute (query, valores)
         conn.commit()
