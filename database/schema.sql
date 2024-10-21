@@ -1,4 +1,4 @@
-CREATE DATABASE IF NOT EXISTS `db_taferas`;
+CREATE DATABASE IF NOT EXISTS `db_tarefas`;
 USE `db_tarefas`;
 
 CREATE TABLE IF NOT EXISTS tb_users (
