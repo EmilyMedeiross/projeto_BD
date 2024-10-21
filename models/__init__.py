@@ -3,7 +3,6 @@ import mysql
 import _mysql_connector as mysql
 from werkzeug.security import generate_password_hash, check_password_hash
 
-
 def obter_conexao():
     return mysql.connector.connect(
         host="localhost",
@@ -41,7 +40,6 @@ class User(UserMixin):
         
     def get_id(self):
         return str(self._id)
-
     
     @property
     def _senha(self):
@@ -55,7 +53,7 @@ class User(UserMixin):
     def save(self):        
         conn = obter_conexao()  
         cursor = conn.cursor(dictionary=True)      
-        cursor.execute("INSERT INTO users(email, senha) VALUES (%s, %s)", (self._email, self._hash,))
+        cursor.execute("INSERT INTO tb_users(use_email, use_senha) VALUES (%s, %s)", (self._email, self._hash,))
         self._id = cursor.lastrowid
         conn.commit()
         conn.close()
@@ -64,7 +62,7 @@ class User(UserMixin):
     def save_tarefas(self):        
         conn = obter_conexao()  
         cursor = conn.cursor(dictionary=True)      
-        cursor.execute ("INSERT INTO tarefas(nome, descricao, situacao, data_criacao, prazo, prioridade, palavra_chave, categoria) VALUES(%s, %s, %s, %s, %s, %s, %s, %s)", (self.nome, self.descricao, self.situacao, self.data_criacao, self.prazo, self.prioridade, self.palavra_chave, self.categoria,))
+        cursor.execute ("INSERT INTO tb_tarefas(tar_nome, tar_descricao, tar_situacao, tar_data_criacao, tar_prazo, tar_prioridade, tar_palavra_chave, tar_categoria) VALUES(%s, %s, %s, %s, %s, %s, %s, %s)", (self.nome, self.descricao, self.situacao, self.data_criacao, self.prazo, self.prioridade, self.palavra_chave, self.categoria,))
         conn.commit()
         conn.close()
         return True
@@ -72,7 +70,7 @@ class User(UserMixin):
     def listar_tarefas(cls):
         conn = obter_conexao()
         cursor = conn.cursor(dictionary=True)
-        cursor.execute("SELECT * FROM pecas")
+        cursor.execute("SELECT * FROM tb_tarefas")
         tarefas = conn.fetchall()
         conn.close()
         return tarefas
@@ -81,7 +79,7 @@ class User(UserMixin):
     def deletar_tarefas(self):        
         conn = obter_conexao()  
         cursor = conn.cursor(dictionary=True)      
-        cursor.execute("DELETE FROM pecas WHERE id = %s", (id,))
+        cursor.execute("DELETE FROM tb_tarefas WHERE tar_id = %s", (id,))
         conn.close()
         return True
     
@@ -98,7 +96,7 @@ class User(UserMixin):
     def get(cls,user_id):
         conn = obter_conexao()
         cursor = conn.cursor(dictionary=True)
-        cursor.execute("SELECT * FROM users WHERE id = %s", (user_id,))
+        cursor.execute("SELECT * FROM tb_users WHERE use_id = %s", (user_id,))
         user = cursor.fetchone()
         conn.commit()
         conn.close()
@@ -113,7 +111,7 @@ class User(UserMixin):
     def exists(cls, email):
         conn = obter_conexao()
         cursor = conn.cursor(dictionary=True)
-        cursor.execute("SELECT * FROM users WHERE email = %s", (email,))
+        cursor.execute("SELECT * FROM tb_users WHERE use_email = %s", (email,))
         user = cursor.fetchall()
         conn.commit()
         conn.close()
@@ -128,7 +126,7 @@ class User(UserMixin):
     def get_by_email(cls,email):
         conn = obter_conexao()
         cursor = conn.cursor(dictionary=True) 
-        cursor.execute("SELECT id, email, senha FROM users WHERE email = %s", (email,))
+        cursor.execute("SELECT use_id, use_email, use_senha FROM tb_users WHERE use_email = %s", (email,))
         user = cursor.fetchone() 
         conn.commit()
         conn.close()
