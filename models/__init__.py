@@ -72,14 +72,14 @@ class User(UserMixin):
         
         query = """
         UPDATE tb_tarefas
-        SET tar_nome = %s, tar_descricao = %s, tar_situacao = %s, 
+        SET tar_descricao = %s, tar_situacao = %s, 
             tar_data_criacao = %s, tar_prazo = %s, tar_prioridade = %s, 
             tar_palavra_chave = %s, tar_categoria = %s
-        WHERE id = %s;
+        WHERE tar_nome = %s,;
         """
-        valores = (self.nome, self.descricao, self.situacao, 
+        valores = (self.descricao, self.situacao, 
                self.data_criacao, self.prazo, self.prioridade, 
-               self.palavra_chave, self.categoria, self._id)
+               self.palavra_chave, self.categoria, self.nome)
         
         cursor.execute (query, valores)
         conn.commit()
