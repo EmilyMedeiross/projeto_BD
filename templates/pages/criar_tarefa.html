@@ -1,55 +1,56 @@
-{% extends 'modelo.html' %}
-
-{% block navbar %}
-<h2><a href="{{url_for('index')}}">Home</a></h1>
-<h2><a href="#">Criar Tarefa</a></h2>
-<h2><a href="{{url_for('listar_tarefa')}}">Listar Tarefa</a></h2>
-<h2><a href="{{url_for('atualizar_tarefa')}}">Atualizar Tarefa</a></h2>
-<h2><a href="{{url_for('deletar')}}">Deletar Tarefa </a></h2>
-{% endblock %}
-
-{% block conteudo %}
-    
-<form action="{{url_for('criar_tarefa')}}" method="POST" class="formLogin">
-    <label for="nome"> Nome: </label>
-    <input type="text" name="nome" placeholder="Digite o nome da tarefa">
-
-    <label for="descriçao"> Descrição: </label>
-    <input type="text" name="descriçao" placeholder="Digite uma descrição">
-
-    <label for="satus"> Status: </label>
-    <select id="status" required name="status" name="status">
-        <option value="Concluída">Concluída</option>
-        <option value="Em andamento">Em andamento</option>
-        <option value="Pendente">Pendente</option>
-    </select>
-    
-
-    <label for="data_criação"> Data de Criação: </label>
-    <input type="date" name="data_criação" placeholder="Digite o status da tarefa"> 
-
-    <label for="prazo"> Prazo: </label>
-    <input type="number" name="prazo" placeholder="Digite o prazo da tarefa (dias)">
-
-    <label for="prioridade"> Prioridade: </label>
-    <select id="prioridade" required name="Prioridade"  name="prioridade">
-        <option value="Baixa">Baixa</option>
-        <option value="Média">Média</option>
-        <option value="Alta">Alta</option>
-    </select>
-
-
-    <label for="palavra_chave"> Palavra Chave: </label>
-    <input type="text" name="palavra_chave" placeholder="Digite uma palavra chave">
-
-    <label for="categoria"> Categoria: </label>
-    <select id="categoria" required name="categoria" name="categoria">
-        <option value="Trabalho">Trabalho</option>
-        <option value="Estudo">Estudo</option>
-        <option value="Pessoal">Pessoal</option>
-    </select>
-   
-    <button class="button-favoritos">Criar</button>
-</form>
-
-{% endblock %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Criar Tarefas</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="static/css/criar_trf.css" />
+  </head>
+  <body>
+    <div class="container">
+        <div class="new-task-container">
+            <div class="new-task=container2">
+                <form action="{{url_for('criar_tarefa')}}" method="POST" class="formLogin">
+                    
+                    <input type="text" name="nome" placeholder="Digite o nome da tarefa" class="new-task-input1">
+                    
+                    <input type="text" name="descriçao" placeholder="Digite uma descrição" class="new-task-input2">
+                    
+                    <select id="status" required name="status" class="new-task-input3 select">
+                        <option value="Concluída">Concluída</option>
+                        <option value="Em andamento">Em andamento</option>
+                        <option value="Pendente">Pendente</option>
+                    </select>
+                    
+                    <input type="date" name="data_criação" placeholder="Digite o status da tarefa" class="new-task-input4"> 
+                
+                    <input type="date" name="prazo" placeholder="Digite o prazo da tarefa (dias)" class="new-task-input5">
+                
+                    <select id="prioridade" required name="prioridade" class="new-task-input6 select">
+                        <option value="Baixa">Baixa</option>
+                        <option value="Média">Média</option>
+                        <option value="Alta">Alta</option>
+                    </select>
+                
+                    <input type="text" name="palavra_chave" placeholder="Digite uma palavra chave" class="new-task-input7">
+                
+                    <select id="categoria" required name="categoria" class="new-task-input select">
+                        <option value="Trabalho">Trabalho</option>
+                        <option value="Estudo">Estudo</option>
+                        <option value="Pessoal">Pessoal</option>
+                    </select>
+                    <button class="new-task-button">Criar</button>
+                </form>
+            </div>
+        </div>
+      <div class="tasks-container" style="display: none;"></div>
+    </div>
+  </body>
+</html>
