@@ -13,7 +13,7 @@ conn = mysql.connector.connect(**db_config)
 cursor = conn.cursor()
 print("Conexão estabelecida com sucesso.")
 
-SCHEMA = "db/shemas.sql"
+SCHEMA = "db/schema.sql"
 
 # Declara o SQL para o banco
 with open(SCHEMA, 'r') as f:
