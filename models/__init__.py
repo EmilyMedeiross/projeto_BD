@@ -38,9 +38,7 @@ class User(UserMixin):
             self._palavra_chave = kwargs['palavra_chave']
         if 'categoria' in kwargs.keys():
             self._categoria = kwargs['categoria']
-
-  
-        
+ 
     def get_id(self):
         return str(self._id)
     
@@ -61,15 +59,15 @@ class User(UserMixin):
         conn.close()
         return True
     
-    def save_tarefas(self):        
+    def save_tarefas(nome, descricao, situacao, data_criacao, prazo, prioridade, palavra_chave, categoria, use_id):        
         conn = obter_conexao()  
         cursor = conn.cursor(dictionary=True)      
-        cursor.execute ("INSERT INTO tb_tarefas(tar_nome, tar_descricao, tar_situacao, tar_data_criacao, tar_prazo, tar_prioridade, tar_palavra_chave, tar_categoria) VALUES(%s, %s, %s, %s, %s, %s, %s, %s)", (self._nome, self._descricao, self._situacao, self._data_criacao, self._prazo, self._prioridade, self._palavra_chave, self._categoria,))
+        cursor.execute ("INSERT INTO tb_tarefas(tar_nome, tar_descricao, tar_situacao, tar_data_criacao, tar_prazo, tar_prioridade, tar_palavra_chave, tar_categoria, tar_use_id) VALUES(%s, %s, %s, %s, %s, %s, %s, %s, %r)", (nome, descricao, situacao, data_criacao, prazo, prioridade, palavra_chave, categoria, use_id,))
         conn.commit()
         conn.close()
         return True
 
-    def atualizar_tarefas(self):
+    def atualizar_tarefas(id_tar, descricao, situacao, data_criacao, prazo, prioridade, palavra_chave, categoria):
         conn = obter_conexao()  
         cursor = conn.cursor(dictionary=True)
         
@@ -78,17 +76,17 @@ class User(UserMixin):
         SET tar_descricao = %s, tar_situacao = %s, 
             tar_data_criacao = %s, tar_prazo = %s, tar_prioridade = %s, 
             tar_palavra_chave = %s, tar_categoria = %s
-        WHERE tar_nome = %s;
+        WHERE tar_id = %s;
         """
-        valores = (self._descricao, self._situacao, 
-               self._data_criacao, self._prazo, self._prioridade, 
-               self._palavra_chave, self._categoria, self._nome)
+        valores = (descricao, situacao, 
+               data_criacao, prazo, prioridade, 
+               palavra_chave, categoria, id_tar)
         
         cursor.execute (query, valores)
         conn.commit()
         conn.close()
         return True
-
+        
     @classmethod
     def listar_tarefas(cls):
         conn = obter_conexao()
