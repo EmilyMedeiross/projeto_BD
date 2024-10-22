@@ -17,5 +17,6 @@ CREATE TABLE IF NOT EXISTS tb_tarefas (
     tar_prioridade TEXT NOT NULL,
     tar_palavra_chave TEXT NOT NULL,
     tar_categoria TEXT NOT NULL
+    FOREIGN KEY (tar_user_id) REFERENCES tb_users(user_id)
 );
 
