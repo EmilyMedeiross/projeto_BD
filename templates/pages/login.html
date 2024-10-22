@@ -1,40 +1,48 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Login</title>
-    <link rel="stylesheet" href="static/css/style_login.css">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
-        integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="stylesheet" href="static/css/style_index.css">
+    <title>Login - Cadastro</title>
 </head>
-<body>
-    <div class="container">
-        <div class="content first-content">
-            <div class="first-column">
-                <h2 class="title title-primary">Bem vindo!</h2>
-                <p class="description description-primary">Faça login com suas informações pessoais</p>
-                <button id="signin" class="btn btn-primary">Cadastro</button>
-            </div>    
-            <div class="second-column">
-                <h2 class="title title-second">Login</h2>
-                <br>
-                <form class="form" method="post" action="{{url_for('login')}}">
-                    
-                    <label class="label-input" for="email">
-                        <i class="far fa-envelope icon-modify"></i>
-                        <input type="email" placeholder="Email" for="email" name="email">
-                    </label>
-                    
-                    <label class="label-input" for="">
-                        <i class="fas fa-lock icon-modify"></i>
-                        <input type="password" placeholder="Senha" for="senha" name="senha">
-                    </label>
 
-                    <button class="btn btn-second">enviar</button>        
-                </form>
+<body>
+
+    <div class="container" id="container">
+        <div class="form-container sign-in">
+            <form class="form" method="post" action="{{url_for('login')}}">
+                <h1>Login</h1>
+                <br><br>
+                <span>Insira email e senha para logar </span>
+
+                <label class="label-input" for="email">
+                    <i class="far fa-envelope icon-modify"></i>
+                    <input type="email" placeholder="Email" for="email" name="email">
+                </label>
+
+                <label class="label-input" for="">
+                    <i class="fas fa-lock icon-modify"></i>
+                    <input type="password" placeholder="Senha" for="senha" name="senha">
+                </label>
+                <br>
+
+                <button type="submit">Entrar</button>
+            </form>
+        </div>
+        <div class="toggle-container">
+            <div class="toggle">
+                <div class="toggle-panel toggle-right">
+                    <h1>Olá, usuário!</h1>
+                    <p>Insira seus dados pessoais para logar no nosso Gerenciador de Tarefas</p>
+                    <button class="hidden" id="register">Cadastre-se</button>
+                </div>
             </div>
+        </div>
     </div>
+    <script src="static/css/js_index.js"></script>
 </body>
+
 </html>
