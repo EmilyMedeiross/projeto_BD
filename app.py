@@ -1,8 +1,10 @@
 from flask import Flask, redirect, render_template, url_for, request, flash
 from models import User, obter_conexao
 from werkzeug.security import check_password_hash, generate_password_hash
-from flask_login import LoginManager, login_user, login_required, logout_user
+from flask_login import LoginManager, login_user, login_required, logout_user, current_user
 #from flask_mysqldb import MySQL
+from wtforms import StringField, PasswordField, SubmitField
+from wtforms.validators import DataRequired, EqualTo, Email, InputRequired
 
 login_manager = LoginManager()
 app = Flask(__name__)
@@ -15,7 +17,7 @@ def load_user(user_id):
 
 @app.route('/')
 def index():    
-    return render_template('pages/index.html')
+    return render_template('pages/criar_tarefa.html')
 
 @app.route('/register', methods=['POST', 'GET'])
 def register():
@@ -29,16 +31,17 @@ def register():
             flash("As senhas não coincidem, por favor tente novamente.")
             return redirect(url_for('register'))
 
-        if not User.exists(email):
-            user = User(email=email, senha=senha)
-            user.save()            
-            # 6 - logar o usuário após cadatro
-            login_user(user) 
-            flash("Cadastro realizado com sucesso")
-            return redirect(url_for('login'))
         else:
-            flash("Usuário já existe. Tente novamente.")
-            return redirect(url_for('register'))
+            if not User.exists(email):
+                user = User(email=email, senha=senha)
+                user.save()            
+                # 6 - logar o usuário após cadatro
+                login_user(user) 
+                flash("Cadastro realizado com sucesso")
+                return redirect(url_for('login'))
+            else:
+                flash("Usuário já existe. Tente novamente.")
+                return redirect(url_for('register'))
     return render_template('pages/register.html')
 
 
@@ -49,8 +52,8 @@ def login():
         senha = request.form['senha']   
         user = User.get_by_email(email)
 
-        if user and check_password_hash(user['use_senha'], senha):
-            login_user(User.get(user['use_id']))
+        if user and check_password_hash(user['senha'], senha):
+            login_user(User.get(user['id']))
             flash("Você está logado")
             return redirect(url_for('criar_tarefa'))
         
@@ -60,8 +63,7 @@ def login():
     return render_template('pages/login.html')
              
 
-@app.route('/criar_tarefa', methods=['GET', 'POST'])
-@login_required
+@app.route('/criar_tarefa', methods=['GET', 'POST']) 
 def criar_tarefa(id_tar = None):
 
     if request.method == 'POST':
@@ -71,7 +73,7 @@ def criar_tarefa(id_tar = None):
         situacao = request.form['status']
         data_criacao = request.form['data_criação']
         prazo = request.form['prazo']
-        prioridade = request.form['prioridade']
+        prioridade = request.form.get('prioridade')
         palavra_chave = request.form['palavra_chave']
         categoria = request.form['categoria']
         use_id = current_user.id
@@ -82,9 +84,9 @@ def criar_tarefa(id_tar = None):
         conn.close()"""
 
         if id_tar:
-            tarefas.atualizar_tarefas(id_tar, descricao, situacao, data_criacao, prazo, prioridade, palavra_chave, categoria)
+            User.atualizar_tarefas(id_tar, descricao, situacao, data_criacao, prazo, prioridade, palavra_chave, categoria)
         else:
-            tarefas.save_tarefas(nome, descricao, situacao, data_criacao, prazo, prioridade, palavra_chave, categoria, use_id)
+            User.save_tarefas(nome, descricao, situacao, data_criacao, prazo, prioridade, palavra_chave, categoria, use_id)
 
     tarefas = None
     if id_tar:
@@ -98,7 +100,6 @@ def criar_tarefa(id_tar = None):
 
 @app.route('/atualizar_tarefa')
 def atualizar_tarefa():
-
     if request.method == 'POST':
 
         nome = request.form['nome']
@@ -111,7 +112,6 @@ def atualizar_tarefa():
         categoria = request.form['categoria']
         tarefas = User(nome=nome, descricao=descricao, situacao=situacao, data_criacao=data_criacao, prazo=prazo, prioridade=prioridade, palavra_chave=palavra_chave, categoria=categoria, tarefas=tarefas)
         tarefas.atualizar_tarefas 
-
     return render_template("pages/atualizar_tarefa.html")
 
 
@@ -128,7 +128,7 @@ def listar_tarefa():
     return render_template('pages/listar_tarefa.html', tarefas=tarefas)"""
 
 
-@app.route('/deletar')
+@app.route('/<int:id>/deletar')
 def deletar():
     if request.method == 'POST':
       tarefa = request.form['tarefa']
@@ -140,7 +140,6 @@ def deletar():
     conexao.connection.commit()
     conn.close()
     return redirect(url_for('listar_pecas'))"""
-
 
 
 # 8 - logout
