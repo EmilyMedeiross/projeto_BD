@@ -81,7 +81,7 @@ def criar_tarefa(id_tar = None):
         conexao.connection.commit()
         conn.close()"""
 
-        if id:
+        if id_tar:
             tarefas.atualizar_tarefas(id_tar, descricao, situacao, data_criacao, prazo, prioridade, palavra_chave, categoria)
         else:
             tarefas.save_tarefas(nome, descricao, situacao, data_criacao, prazo, prioridade, palavra_chave, categoria, use_id)
