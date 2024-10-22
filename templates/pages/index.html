@@ -1,23 +1,41 @@
-{% extends 'modelo.html' %}
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Tarefas</title>
+    <link rel="stylesheet" href="static/css/style_test.css">
+</head>
+<body>
+    <header>
+        <h1>Sistema de Tarefas</h1>
+        <nav>
+            <ul>
+                <li> <a  href="{{url_for('login')}}">Login</a><a href="#"></a></li>
+                <li><a  href="{{url_for('register')}}">Cadastro</a><li>
+            </ul>
+        </nav>
+    </header>
 
-{% block title %} Inicial {% endblock %}
-
-{% block conteudo %}
-
-<!-- Header-->
-<header class="masthead text-center text-white">
-    <div class="masthead-content">
-        <div class="container px-5">
-            <h1 class="masthead-heading mb-0">Um site que te ajuda a organizar suas tarefas</h1>
-            <h2 class="masthead-subheading mb-0">Logue-se ou Cadastre-se abaixo</h2>
-            <a class="btn btn-primary btn-xl rounded-pill mt-5" href="{{url_for('login')}}">Login</a>
-            <a class="btn btn-primary btn-xl rounded-pill mt-5" href="{{url_for('register')}}">Cadastro</a>
+    <main>
+        <div class="intro">
+            <h2>Organize suas tarefas com facilidade</h2>
+            <p>Nosso sistema de tarefas ajuda você a se manter produtivo e organizado.</p>
+            <p>  <p id="funcao"> Funções do sistema</p>
+                <nav>
+                 <ul id="lista_tarefa">
+                    <li>Criar Tarefas</a></li>
+                    <li>Listar Tarefas<li>
+                    <li>Atualizar Tarefas</li>
+                    <li>Deletar Tarefa</li>
+                 </ul>
+                </nav>
+            </p>
         </div>
-    </div>
-    <div class="bg-circle-1 bg-circle"></div>
-    <div class="bg-circle-2 bg-circle"></div>
-    <div class="bg-circle-3 bg-circle"></div>
-    <div class="bg-circle-4 bg-circle"></div>
-</header>
+    </main>
 
-{% endblock %}
+    <footer>
+        <p>&copy; 2024 - Sistema de Tarefas. Todos os direitos reservados.</p>
+    </footer>
+</body>
+</html>
