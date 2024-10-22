@@ -22,6 +22,12 @@ def register():
     if request.method == 'POST':
         email = request.form['email']
         senha = request.form['senha'] 
+        confsenha = request.form['confsenha']
+
+         # Verifica se a senha e a confirmação da senha são iguais
+        if senha != confsenha:
+            flash("As senhas não coincidem, por favor tente novamente.")
+            return redirect(url_for('register'))
 
         if not User.exists(email):
             user = User(email=email, senha=senha)
@@ -30,6 +36,9 @@ def register():
             login_user(user) 
             flash("Cadastro realizado com sucesso")
             return redirect(url_for('login'))
+        else:
+            flash("Usuário já existe. Tente novamente.")
+            return redirect(url_for('register'))
     return render_template('pages/register.html')
 
 
