@@ -1,7 +1,7 @@
 
 from flask_login import UserMixin
 import mysql
-import mysql.connector 
+import mysql.connector
 from werkzeug.security import generate_password_hash, check_password_hash
 
 def obter_conexao():
@@ -53,7 +53,8 @@ class User(UserMixin):
     def save(self):        
         conn = obter_conexao()  
         cursor = conn.cursor(dictionary=True)      
-        cursor.execute("INSERT INTO tb_users(use_email, use_senha) VALUES (%s, %s)", (self._email, self._hash,))
+        cursor.execute("INSERT INTO tb_users (use_email, use_senha) VALUES (%s, %s)", (self._email, self._hash,))
+        teste = cursor.fetchone()
         self._id = cursor.lastrowid
         conn.commit()
         conn.close()
@@ -92,7 +93,7 @@ class User(UserMixin):
         conn = obter_conexao()
         cursor = conn.cursor(dictionary=True)
         cursor.execute("SELECT * FROM tb_tarefas")
-        tarefas = conn.fetchall()
+        tarefas = cursor.fetchall()
         conn.close()
         return tarefas
 
@@ -142,5 +143,4 @@ class User(UserMixin):
         conn.close()
     
         return user
-    
-    
+
