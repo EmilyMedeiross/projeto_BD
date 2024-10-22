@@ -1,19 +1,40 @@
-{% extends 'modelo.html' %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Login</title>
+    <link rel="stylesheet" href="static/css/style_login.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
+        integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+</head>
+<body>
+    <div class="container">
+        <div class="content first-content">
+            <div class="first-column">
+                <h2 class="title title-primary">Bem vindo!</h2>
+                <p class="description description-primary">Faça login com suas informações pessoais</p>
+                <button id="signin" class="btn btn-primary">Cadastro</button>
+            </div>    
+            <div class="second-column">
+                <h2 class="title title-second">Login</h2>
+                <br>
+                <form class="form" method="post" action="{{url_for('login')}}">
+                    
+                    <label class="label-input" for="email">
+                        <i class="far fa-envelope icon-modify"></i>
+                        <input type="email" placeholder="Email" for="email" name="email">
+                    </label>
+                    
+                    <label class="label-input" for="">
+                        <i class="fas fa-lock icon-modify"></i>
+                        <input type="password" placeholder="Senha" for="senha" name="senha">
+                    </label>
 
-{% block title %} Login {% endblock %}
-
-{% block conteudo %}
-
-<div class="page">
-    <form method="POST" class="formLogin" method="post" action="{{url_for('login')}}">
-        <h1>Login</h1>
-        <p>Digite os seus dados de acesso no campo abaixo.</p>
-        <label for="email">E-mail</label>
-        <input type="email" name="email" placeholder="Digite seu e-mail" autofocus="true" />
-        <label for="password">Senha</label>
-        <input type="password" name="senha" placeholder="Digite sua senha" />
-        <button class="btn btn-primary btn-xl rounded-pill mt-5">Login</button>
-    </form>
-</div>
-
-{% endblock %}
+                    <button class="btn btn-second">enviar</button>        
+                </form>
+            </div>
+    </div>
+</body>
+</html>
