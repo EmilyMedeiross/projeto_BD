@@ -1,19 +1,53 @@
-{% extends 'modelo.html' %}
+<!DOCTYPE html>
+<html lang="en">
 
-{% block title %} Login {% endblock %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="stylesheet" href="static/css/style_index.css">
+    <title>Cadastro</title>
+</head>
 
-{% block conteudo %}
+<body>
 
-<div class="page">
-    <form method="POST" class="formLogin" method="post" action="{{url_for('register')}}">
-        <h1>Cadastro</h1>
-        <p>Digite os seus dados no campo abaixo para se cadastrar.</p>
-        <label for="email">E-mail</label>
-        <input type="email" name="email" placeholder="Digite seu e-mail" autofocus="true" />
-        <label for="password">Senha</label>
-        <input type="password" name="senha" placeholder="Crie uma senha" />
-        <button class="btn btn-primary btn-xl rounded-pill mt-5">cadastrar</button>
-    </form>
-</div>
+    <div class="container" id="container">
+        <div class="form-container sign-in">
+            <form class="form" method="post" action="{{url_for('login')}}">
+                <h1>Cadastre-se</h1>
+                <br><br>
+                <span>IInsira seus dados pessoais para logar no nosso Gerenciador de Tarefas </span>
 
-{% endblock %}
+                <label class="label-input" for="email">
+                    <i class="far fa-envelope icon-modify"></i>
+                    <input type="email" placeholder="Email" for="email" name="email">
+                </label>
+
+                <label class="label-input" for="">
+                    <i class="fas fa-lock icon-modify"></i>
+                    <input type="password" placeholder="Senha" for="senha" name="senha">
+                </label>
+
+                <label class="label-input" for="">
+                    <i class="fas fa-lock icon-modify"></i>
+                    <input type="password" placeholder="confirme sua senha" for="confsenha" name="confsenha">
+                </label>
+                <br>
+
+                <button type="submit">Entrar</button>
+            </form>
+        </div>
+        <div class="toggle-container">
+            <div class="toggle">
+                <div class="toggle-panel toggle-right">
+                    <h1>Bem vindo!</h1>
+                    <p>Crie uma conta para utilizar todos os recursos do Gerenciador de Tarefas</p>
+                    <button class="hidden" id="registercad"  onclick="click()">Login</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="static/css/js_index2.js"></script>
+</body>
+
+</html>
