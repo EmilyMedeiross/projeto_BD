@@ -51,7 +51,8 @@ def login():
     return render_template('pages/login.html')
              
 
-@app.route('/criar_tarefa', methods=['GET', 'POST']) 
+@app.route('/criar_tarefa', methods=['GET', 'POST'])
+@login_required
 def criar_tarefa(id_tar = None):
 
     if request.method == 'POST':
