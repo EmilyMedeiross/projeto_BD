@@ -52,7 +52,7 @@ def login():
              
 
 @app.route('/criar_tarefa', methods=['GET', 'POST']) 
-def criar_tarefa():
+def criar_tarefa(id_tar = None):
 
     if request.method == 'POST':
 
@@ -64,12 +64,26 @@ def criar_tarefa():
         prioridade = request.form['prioridade']
         palavra_chave = request.form['palavra_chave']
         categoria = request.form['categoria']
+        use_id = current_user.id
+
         """ banco de dados diretamente no código -  conn = conexao.connection.cursor()
         conn.execute ("INSERT INTO tarefas(nome, descricao, situacao, data_criacao, prazo, prioridade, palavra_chave, categoria) VALUES(%s, %s, %s, %s, %s, %s, %s, %s)", (nome, descricao, situacao, data_criacao, prazo, prioridade, palavra_chave, categoria,))
         conexao.connection.commit()
         conn.close()"""
-        tarefas = User(nome=nome, descricao=descricao, situacao=situacao, data_criacao=data_criacao, prazo=prazo, prioridade=prioridade, palavra_chave=palavra_chave, categoria=categoria, tarefas=tarefas)
-        tarefas.save_tarefas    
+
+        if id:
+            tarefas.atualizar_tarefas(id_tar, descricao, situacao, data_criacao, prazo, prioridade, palavra_chave, categoria)
+        else:
+            tarefas.save_tarefas(nome, descricao, situacao, data_criacao, prazo, prioridade, palavra_chave, categoria, use_id)
+
+    tarefas = None
+    if id_tar:
+        conn = obter_conexao()
+        cursor = conn.cursor(dictionary=True)    
+        cursor.execute('SELECT * FROM tb_tarefas where tar_id=%r', (id_tar,))
+        tarefas = cursor.fetchone()
+        cursor.close()
+        conn.close()
     return render_template("pages/criar_tarefa.html")
 
 @app.route('/atualizar_tarefa')
