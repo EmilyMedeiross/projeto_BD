@@ -1,56 +1,51 @@
-{% extends 'modelo.html' %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Atualizar Tarefa</title>
+    <link rel="stylesheet" href="static/css/style_atualizar.css">
+</head>
+<body>
 
-{% block navbar %}
-<h2><a href="{{url_for('index')}}">Home</a></h1>
-<h2><a href="#">Atualizar terefa</a></h2>
-<h2><a href="{{url_for('listar_tarefa')}}">Listar Tarefa</a></h2>
-<h2><a href="{{url_for('criar_tarefa')}}">Criar Tarefa </a></h2>
-<h2><a href="{{url_for('deletar')}}">Deletar Tarefa </a></h2>
+<header>
+    <h1>Sistema de Tarefas</h1>
+        <nav>
+            <ul>
+                <li> <a  href="{{url_for('login')}}">Login</a><a href="#"></a></li>
+                <li><a  href="{{url_for('register')}}">Cadastro</a><li>
+            </ul>
+        </nav>
+</header>
 
-{% endblock %}
+<main>
+    <div class="task-container">
+        <h2>Editar Tarefa</h2>
+        <form class="task-form">
+            <label for="descricao">Descrição da Tarefa</label>
+            <textarea id="descricao" name="descricao" rows="4" placeholder="Digite a descrição da tarefa..."></textarea>
 
-{% block conteudo %}
-    
-<form action="{{url_for('atualizar_tarefa')}}" method="POST" class="formLogin">
+            <label for="status">Status</label>
+            <select id="status" name="status">
+                <option value="pendente">Pendente</option>
+                <option value="em_progresso">Em Progresso</option>
+                <option value="concluida">Concluída</option>
+            </select>
 
-    <h1>Atualizar Tarefa</h1>
+            <label for="prazo">Prazo de Conclusão</label>
+            <input type="date" id="prazo" name="prazo">
 
-    <label for="nome"> Nome: </label>
-    <input type="text" name="nome" placeholder="Digite o nome da tarefa (não repita nomes de outras tarefas já cadastradas)">
-    
-    <label for="descriçao"> Descrição: </label>
-    <input type="text" name="descriçao" placeholder="Digite uma descrição">
-    
-    <label for="satus"> Status: </label>
-    <select id="status" required name="status" name="status">
-        <option value="Concluída">Concluída</option>
-        <option value="Em andamento">Em andamento</option>
-        <option value="Pendente">Pendente</option>
-    </select>
-    
-    <label for="data_criação"> Data de Criação: </label>
-    <input type="date" name="data_criação" placeholder="Digite o status da tarefa"> 
+            <!-- Centralização do botão -->
+            <div class="button-container">
+                <button type="submit">Atualizar</button>
+            </div>
+        </form>
+    </div>
+</main>
 
-    <label for="prazo"> Prazo: </label>
-    <input type="number" name="prazo" placeholder="Digite o prazo da tarefa (dias)">
+<footer>
+    <p>Todos os direitos reservados &copy; 2024</p>
+</footer>
 
-    <label for="prioridade"> Prioridade: </label>
-    <select id="prioridade" required name="Prioridade"  name="prioridade">
-        <option value="Baixa">Baixa</option>
-        <option value="Média">Média</option>
-        <option value="Alta">Alta</option>
-    </select>
-    
-    <label for="palavra_chave"> Palavra Chave: </label>
-    <input type="text" name="palavra_chave" placeholder="Digite uma palavra chave">
-
-    <label for="categoria"> Categoria: </label>
-    <select id="categoria" required name="categoria" name="categoria">
-        <option value="Trabalho">Trabalho</option>
-        <option value="Estudo">Estudo</option>
-        <option value="Pessoal">Pessoal</option>
-    </select>
-    <button class="button-favoritos">Atualizar</button>
-</form>
-
-{% endblock %}
+</body>
+</html>
