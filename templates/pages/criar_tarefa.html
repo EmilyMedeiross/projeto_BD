@@ -15,15 +15,19 @@
   </head>
   <body>
     
-<header>
-    <h1>Sistema de Tarefas</h1>
-        <nav>
-            <ul>
-                <li> <a  href="{{url_for('login')}}">Login</a><a href="#"> </a></li>
-                <li> <a  href="{{url_for('register')}}">Cadastro</a> <li>
-            </ul>
-        </nav>
-</header>
+    <header>
+        <h1>Sistema de Tarefas</h1>
+            <nav>
+                <ul>
+                    <li> <a  href="{{url_for('login')}}">Login</a><a href="#"></a></li>
+                    <li><a  href="{{url_for('register')}}">Cadastro</a><li>
+                    <li><a  href="{{url_for('criar_tarefa')}}">Criar Tarefa</a><li>
+                    <li><a  href="{{url_for('atualizar_tarefa')}}">Atualizar Tarefa</a><li></li>
+                    <li><a  href="{{url_for('listar_tarefa')}}">Listar Tarefa</a><li></li>
+                    
+                </ul>
+            </nav>
+    </header>
 
 <main>
     <div class="task-container">
