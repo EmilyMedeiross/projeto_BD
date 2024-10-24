@@ -9,104 +9,26 @@
 <body>
 
 <header>
-    <h1>Listar Tarefas</h1>
-    <nav>
-        <ul>
-            <li><a href="#">Início</a></li>
-            <li><a href="#">Tarefas</a></li>
-            <li><a href="#">Sair</a></li>
-        </ul>
-    </nav>
+    <h1>Sistema de Tarefas</h1>
+        <nav>
+            <ul>
+                <li> <a  href="{{url_for('login')}}">Login</a><a href="#"></a></li>
+                <li><a  href="{{url_for('register')}}">Cadastro</a><li>
+                <li><a  href="{{url_for('criar_tarefa')}}">Criar Tarefa</a><li>
+                <li><a  href="{{url_for('atualizar_tarefa')}}">Atualizar Tarefa</a><li></li>
+                <li><a  href="{{url_for('listar_tarefa')}}">Listar Tarefa</a><li></li>
+                
+            </ul>
+        </nav>
 </header>
-
 <main>
-    <div class="container">
-        <form class="filter-form" onsubmit="return buscarTarefas();">
-            <h2>Filtrar Tarefas</h2>
-
-            <!-- Filtro por Status -->
-            <label for="status">Status:</label>
-            <select id="status" name="status">
-                <option value="todas">Todas</option>
-                <option value="pendente">Pendente</option>
-                <option value="em_progresso">Em Progresso</option>
-                <option value="concluida">Concluída</option>
-            </select>
-
-            <!-- Filtro por Data de Criação -->
-            <label for="data-criacao">Data de Criação:</label>
-            <input type="date" id="data-criacao" name="data-criacao">
-
-            <!-- Filtro por Prazo -->
-            <label for="prazo">Prazo de Conclusão:</label>
-            <input type="date" id="prazo" name="prazo">
-
-            <!-- Filtro por Prioridade -->
-            <label for="prioridade">Prioridade:</label>
-            <select id="prioridade" name="prioridade">
-                <option value="todas">Todas</option>
-                <option value="baixa">Baixa</option>
-                <option value="media">Média</option>
-                <option value="alta">Alta</option>
-            </select>
-
-            <!-- Filtro por Categoria -->
-            <label for="categoria">Categoria:</label>
-            <select id="categoria" name="categoria">
-                <option value="todas">Todas</option>
-                <option value="trabalho">Trabalho</option>
-                <option value="estudo">Estudo</option>
-                <option value="pessoal">Pessoal</option>
-            </select>
-
-            <!-- Filtro por Palavras-chave -->
-            <label for="busca">Buscar por Descrição:</label>
-            <input type="text" id="busca" name="busca" placeholder="Digite palavras-chave...">
-
-            <!-- Botão de Filtrar -->
-            <div class="button-container">
-                <button type="submit">Filtrar</button>
-            </div>
-        </form>
-
-        <!-- Listagem de Tarefas - Inicialmente Oculta -->
-        <div class="task-list hidden" id="task-list">
-            <h2>Tarefas Encontradas</h2>
-
-            <div class="task">
-                <h3>Tarefa 1</h3>
-                <p>Status: Concluída</p>
-                <p>Data de Criação: 2024-10-01</p>
-                <p>Prazo: 2024-10-15</p>
-                <p>Prioridade: Alta</p>
-                <p>Categoria: Trabalho</p>
-            </div>
-
-            <div class="task">
-                <h3>Tarefa 2</h3>
-                <p>Status: Em Progresso</p>
-                <p>Data de Criação: 2024-10-05</p>
-                <p>Prazo: 2024-10-20</p>
-                <p>Prioridade: Média</p>
-                <p>Categoria: Estudo</p>
-            </div>
-
-            <!-- Mais tarefas podem ser listadas aqui -->
-        </div>
-    </div>
+  <p>Conteudo: será colocado dps que criar função listar</p>
 </main>
 
 <footer>
     <p>Todos os direitos reservados &copy; 2024</p>
 </footer>
 
-<script>
-    function buscarTarefas() {
-        // Simula a busca e exibe as tarefas após a filtragem
-        document.getElementById('task-list').classList.remove('hidden');
-        return false;  // Impede o reload da página
-    }
-</script>
 
 </body>
 </html>
