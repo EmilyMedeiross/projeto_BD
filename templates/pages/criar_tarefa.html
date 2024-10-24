@@ -19,8 +19,8 @@
     <h1>Sistema de Tarefas</h1>
         <nav>
             <ul>
-                <li> <a  href="{{url_for('login')}}">Login</a><a href="#"></a></li>
-                <li><a  href="{{url_for('register')}}">Cadastro</a><li>
+                <li> <a  href="{{url_for('login')}}">Login</a><a href="#"> </a></li>
+                <li> <a  href="{{url_for('register')}}">Cadastro</a> <li>
             </ul>
         </nav>
 </header>
@@ -29,41 +29,46 @@
     <div class="task-container">
         <h2>Criar Tarefa</h2>
         <form action="{{url_for('criar_tarefa')}}" method="post" class="task-form" >
-            <input type="text" name="nome" placeholder="Digite o nome da tarefa" class="new-task-input1">
+            <div class="div1">
+                <input type="text" name="nome" placeholder="Digite o nome da tarefa" class="new-task-input1">
                 
-            <input type="text" name="descriçao" placeholder="Digite uma descrição" class="new-task-input2">
-            
-            <label for="descricao">Status</label>
-            <select id="status" required name="status" class="new-task-input3 select">
-                <option value="Concluída">Concluída</option>
-                <option value="Em andamento">Em andamento</option>
-                <option value="Pendente">Pendente</option>
-            </select>
-                
-            <div class="datas">
-                <label for="descricao">Data da criação</label>
-                <input type="date" name="data_criação" placeholder="Digite o status da tarefa" class="new-task-input4"> 
-            
+                <input type="text" name="descriçao" placeholder="Digite uma descrição" class="new-task-input2">    
+            </div>
+           
+            <div class="datas">         
                 <label for="descricao">Data do prazo</label>
                 <input type="date" name="prazo" placeholder="Digite o prazo da tarefa (dias)" class="new-task-input5">
+                
+                <label for="descricao">Status</label>
+                <select id="status" required name="status" class="new-task-input3 select">
+                    <option value="Concluída">Concluída</option>
+                    <option value="Em andamento">Em andamento</option>
+                    <option value="Pendente">Pendente</option>
+                </select>
+
             </div>
 
-            <label for="descricao">Prioridade</label>
-            <select id="prioridade" required name="prioridade" class="new-task-input6 select">
-                <option value="Baixa">Baixa</option>
-                <option value="Média">Média</option>
-                <option value="Alta">Alta</option>
-            </select>
+            <div class="priori">
+                <label for="descricao">Prioridade</label>
+                <select id="prioridade" required name="prioridade" class="new-task-input6 select">
+                    <option value="Baixa">Baixa</option>
+                    <option value="Média">Média</option>
+                    <option value="Alta">Alta</option>
+                </select>
             
-            <input type="text" name="palavra_chave" placeholder="Digite uma palavra chave" class="new-task-input7">
+                <input type="text" name="palavra_chave" placeholder="Digite uma palavra chave" class="new-task-input7">
+            </div>
             
-            <label for="descricao">Categoria</label>
-            <select id="categoria" required name="categoria" class="new-task-input select">
-                <option value="Trabalho">Trabalho</option>
-                <option value="Estudo">Estudo</option>
-                <option value="Pessoal">Pessoal</option>
-            </select>
-            <button class="new-task-button">Criar</button>
+            <div class="div4">
+                <label for="descricao">Categoria</label>
+                <select id="categoria" required name="categoria" class="new-task-input select">
+                    <option value="Trabalho">Trabalho</option>
+                    <option value="Estudo">Estudo</option>
+                    <option value="Pessoal">Pessoal</option>
+                </select>
+                <button class="new-task-button">Criar</button>
+            </div>
+            
         </form>
     </div>
 </main>
