@@ -71,21 +71,62 @@ main {
 
 .task-form {
     display: flex;
-    flex-direction: column;
+    flex-wrap: wrap;
     justify-content: space-between;
     align-items: center;
+    max-height: 500px;
 }
 
-.datas .new-task-input4 .new-task-input5 {
-    margin: 50px;
+.div1 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+
+}
+
+.div1 .new-task-input1, .div1 .new-task-input2  {
+    margin: 10px;
+    width: 70%;
+}
+
+.div4 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.priori {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.priori .new-task-input7 {
+    margin-left: 15px;
+    margin-top: 10px;
+    width: 50%;
+}
+
+
+.datas .new-task-input5 {
+    margin-left: 15px;
+    margin-top: 10px;
     width: 30%;
 }
 
+
 .datas {
-    flex-direction: column;
-    justify-content: space-between;
+    align-items: center;
+    justify-content: center;
     display: flex;
     width: 100%;
+}
+
+.new-task-input3 {
+    width: 30%;
 }
 
 
@@ -94,11 +135,11 @@ main {
     color: #333;
     margin-left: 8px;
     margin-bottom: 7px;
-    display: block;
+    display: flex;
 }
 
 .task-form input, .task-form textarea, .task-form select {
-    width: 100%;
+    width: 60%;
     padding: 10px;
     margin-bottom: 20px;
     border: 1px solid #ccc;
