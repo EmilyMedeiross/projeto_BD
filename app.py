@@ -76,7 +76,7 @@ def criar_tarefa(id_tar = None):
         prioridade = request.args.get('prioridade')
         palavra_chave = request.form['palavra_chave']
         categoria = request.form['categoria']
-        use_id = current_user.id_tar
+        use_id = current_user._id
 
         """ banco de dados diretamente no código -  conn = conexao.connection.cursor()
         conn.execute ("INSERT INTO tarefas(nome, descricao, situacao, data_criacao, prazo, prioridade, palavra_chave, categoria) VALUES(%s, %s, %s, %s, %s, %s, %s, %s)", (nome, descricao, situacao, data_criacao, prazo, prioridade, palavra_chave, categoria,))
@@ -84,7 +84,7 @@ def criar_tarefa(id_tar = None):
         conn.close()"""
 
         if use_id:
-            tarefas.atualizar_tarefas(id_tar, descricao, situacao, data_criacao, prazo, prioridade, palavra_chave, categoria)
+            .atualizar_tarefas(id_tar, descricao, situacao, data_criacao, prazo, prioridade, palavra_chave, categoria)
         else:
             tarefas.save_tarefas(nome, descricao, situacao, data_criacao, prazo, prioridade, palavra_chave, categoria, use_id)
 
