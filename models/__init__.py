@@ -69,25 +69,17 @@ class User(UserMixin):
         conn.close()
         return True
 
-    def atualizar_tarefas(use_id, descricao, situacao, data_criacao, prioridade, palavra_chave, categoria):
+    def atualizar_tarefas(tar_id, descricao, situacao, data_criacao, prioridade, palavra_chave, categoria):
         conn = obter_conexao()  
-        cursor = conn.cursor(dictionary=True)
+        cursor = conn.cursor()
+        cursor.execute(
+             "UPDATE tb_tarefas SET tar_descricao = %s, tar_situacao = %s, tar_data_criacao = %s, tar_prioridade = %s, tar_palavra_chave = %s, tar_categoria = %s WHERE tar_id = %s",
+            (descricao, situacao, data_criacao, prioridade, palavra_chave, categoria, tar_id)
+        )
         
-        query = """
-        UPDATE tb_tarefas
-        SET tar_descricao = %s, tar_situacao = %s, 
-            tar_data_criacao = %s, tar_prioridade = %s, 
-            tar_palavra_chave = %s, tar_categoria = %s
-        WHERE tar_id = %s;
-        """
-        valores = (descricao, situacao, 
-               data_criacao,  prioridade, 
-               palavra_chave, categoria, use_id)
-        
-        cursor.execute (query, valores)
         conn.commit()
+        cursor.close()
         conn.close()
-        return True
 
     
     @classmethod
