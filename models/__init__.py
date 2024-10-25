@@ -39,6 +39,7 @@ class User(UserMixin):
         if 'categoria' in kwargs.keys():
             self._categoria = kwargs['categoria']
  
+    
     def get_id(self):
         return str(self._id)
     
@@ -63,12 +64,12 @@ class User(UserMixin):
     def save_tarefas(nome, descricao, situacao, data_criacao, prazo, prioridade, palavra_chave, categoria, use_id):        
         conn = obter_conexao()  
         cursor = conn.cursor(dictionary=True)      
-        cursor.execute ("INSERT INTO tb_tarefas(tar_nome, tar_descricao, tar_situacao, tar_data_criacao, tar_prazo, tar_prioridade, tar_palavra_chave, tar_categoria, tar_use_id) VALUES(%s, %s, %s, %s, %s, %s, %s, %s, %r)", (nome, descricao, situacao, data_criacao, prazo, prioridade, palavra_chave, categoria, use_id,))
+        cursor.execute ("INSERT INTO tb_tarefas(tar_nome, tar_descricao, tar_situacao, tar_data_criacao, tar_prazo, tar_prioridade, tar_palavra_chave, tar_categoria, tar_use_id) VALUES(%s, %s, %s, %s, %s, %s, %s, %s, %s)", (nome, descricao, situacao, data_criacao, prazo, prioridade, palavra_chave, categoria, use_id,))
         conn.commit()
         conn.close()
         return True
 
-    def atualizar_tarefas(id_tar, descricao, situacao, data_criacao, prazo, prioridade, palavra_chave, categoria):
+    def atualizar_tarefas(use_id, descricao, situacao, data_criacao, prazo, prioridade, palavra_chave, categoria):
         conn = obter_conexao()  
         cursor = conn.cursor(dictionary=True)
         
@@ -81,18 +82,19 @@ class User(UserMixin):
         """
         valores = (descricao, situacao, 
                data_criacao, prazo, prioridade, 
-               palavra_chave, categoria, id_tar)
+               palavra_chave, categoria, use_id)
         
         cursor.execute (query, valores)
         conn.commit()
         conn.close()
         return True
-        
+
+    
     @classmethod
-    def listar_tarefas(cls):
+    def listar_tarefas(cls, use_id):
         conn = obter_conexao()
         cursor = conn.cursor(dictionary=True)
-        cursor.execute("SELECT * FROM tb_tarefas")
+        cursor.execute("SELECT * FROM tb_tarefas WHERE tar_use_id = %s", (use_id,))
         tarefas = cursor.fetchall()
         conn.close()
         return tarefas
@@ -143,4 +145,4 @@ class User(UserMixin):
         conn.close()
     
         return user
-
+    
