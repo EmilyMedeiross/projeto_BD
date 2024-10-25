@@ -88,7 +88,7 @@ def criar_tarefa():
 
 @app.route('/atualizar_tarefa')
 @app.route('/atualizar_tarefa/<int:tar_id>', methods=['GET', 'POST'])
-def atualizar_tarefa():
+def atualizar_tarefa(tar_id=none):
 
     if request.method == 'POST':
 
