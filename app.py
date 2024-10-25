@@ -1,6 +1,7 @@
+
 from flask import Flask, redirect, render_template, url_for, request, flash
-from models import User, obter_conexao
-from werkzeug.security import check_password_hash, generate_password_hash
+from models import User
+from werkzeug.security import check_password_hash
 from flask_login import LoginManager, login_user, login_required, logout_user, current_user
 
 #from flask_mysqldb import MySQL
@@ -56,7 +57,7 @@ def login():
         if user and check_password_hash(user['use_senha'], senha):
             login_user(User.get(user['use_id']))
             flash("Você está logado")
-            return render_template('pages/criar_tarefa.html')
+            return render_template('pages/listar_tarefa.html')
         
         else:
             flash("Dados incorretos")
@@ -84,7 +85,7 @@ def criar_tarefa():
     if current_user.is_authenticated:
         tarefas = User.listar_tarefas(current_user.get_id())
 
-    return render_template("pages/listar_tarefa.html", tarefas=tarefas)
+    return render_template("pages/criar_tarefa.html", tarefas=tarefas)
 
 @app.route('/atualizar_tarefa')
 @app.route('/atualizar_tarefa/<int:tar_id>', methods=['GET', 'POST'])
