@@ -30,8 +30,8 @@ class User(UserMixin):
             self._situacao = kwargs['situacao']
         if 'data_criacao' in kwargs.keys():
             self._data_criacao = kwargs['data_criacao']
-        if 'prazo' in kwargs.keys():
-            self._prazo = kwargs['prazo']
+        # if 'prazo' in kwargs.keys():
+        #     self._prazo = kwargs['prazo']
         if 'prioridade' in kwargs.keys():
             self._prioridade = kwargs['prioridade']
         if 'palavra_chave' in kwargs.keys():
@@ -61,27 +61,27 @@ class User(UserMixin):
         conn.close()
         return True
     
-    def save_tarefas(nome, descricao, situacao, data_criacao, prazo, prioridade, palavra_chave, categoria, use_id):        
+    def save_tarefas(nome, descricao, situacao, data_criacao, prioridade, palavra_chave, categoria, use_id):        
         conn = obter_conexao()  
         cursor = conn.cursor(dictionary=True)      
-        cursor.execute ("INSERT INTO tb_tarefas(tar_nome, tar_descricao, tar_situacao, tar_data_criacao, tar_prazo, tar_prioridade, tar_palavra_chave, tar_categoria, tar_use_id) VALUES(%s, %s, %s, %s, %s, %s, %s, %s, %s)", (nome, descricao, situacao, data_criacao, prazo, prioridade, palavra_chave, categoria, use_id,))
+        cursor.execute ("INSERT INTO tb_tarefas(tar_nome, tar_descricao, tar_situacao, tar_data_criacao, tar_prioridade, tar_palavra_chave, tar_categoria, tar_use_id) VALUES(%s, %s, %s, %s, %s, %s, %s, %s)", (nome, descricao, situacao, data_criacao,  prioridade, palavra_chave, categoria, use_id,))
         conn.commit()
         conn.close()
         return True
 
-    def atualizar_tarefas(use_id, descricao, situacao, data_criacao, prazo, prioridade, palavra_chave, categoria):
+    def atualizar_tarefas(use_id, descricao, situacao, data_criacao, prioridade, palavra_chave, categoria):
         conn = obter_conexao()  
         cursor = conn.cursor(dictionary=True)
         
         query = """
         UPDATE tb_tarefas
         SET tar_descricao = %s, tar_situacao = %s, 
-            tar_data_criacao = %s, tar_prazo = %s, tar_prioridade = %s, 
+            tar_data_criacao = %s, tar_prioridade = %s, 
             tar_palavra_chave = %s, tar_categoria = %s
         WHERE tar_id = %s;
         """
         valores = (descricao, situacao, 
-               data_criacao, prazo, prioridade, 
+               data_criacao,  prioridade, 
                palavra_chave, categoria, use_id)
         
         cursor.execute (query, valores)
