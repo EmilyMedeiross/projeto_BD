@@ -62,41 +62,65 @@ def login():
     return render_template('pages/login.html')
              
 
+# @app.route('/criar_tarefa', methods=['GET', 'POST'])
+# @login_required
+# def criar_tarefa(use_id = None):
+
+#     if request.method == 'POST':
+
+#         nome = request.form['nome']
+#         descricao = request.form['descriçao']
+#         situacao = request.form['status']
+#         data_criacao = request.form['data_criação']
+#         prazo = request.form['prazo']
+#         prioridade = request.args.get('prioridade')
+#         palavra_chave = request.form['palavra_chave']
+#         categoria = request.form['categoria']
+#         use_id = User.get_id()
+
+      
+
+#         """ banco de dados diretamente no código -  conn = conexao.connection.cursor()
+#         conn.execute ("INSERT INTO tarefas(nome, descricao, situacao, data_criacao, prazo, prioridade, palavra_chave, categoria) VALUES(%s, %s, %s, %s, %s, %s, %s, %s)", (nome, descricao, situacao, data_criacao, prazo, prioridade, palavra_chave, categoria,))
+#         conexao.connection.commit()
+#         conn.close()"""
+
+#         if use_id:
+#             User.atualizar_tarefas(use_id, descricao, situacao, data_criacao, prazo, prioridade, palavra_chave, categoria)
+#         else:
+#             User.save_tarefas(nome, descricao, situacao, data_criacao, prazo, prioridade, palavra_chave, categoria, use_id)
+
+#     tarefas = None
+#     if use_id:
+#         conn = obter_conexao()
+#         cursor = conn.cursor(dictionary=True)    
+#         cursor.execute('SELECT * FROM tb_tarefas where tar_id = %', (use_id,))
+#         tarefas = cursor.fetchone()
+#         cursor.close()
+#         conn.close()
+#     return render_template("pages/criar_tarefa.html")
+
 @app.route('/criar_tarefa', methods=['GET', 'POST'])
 @login_required
-def criar_tarefa(id_tar = None):
-
+def criar_tarefa():
     if request.method == 'POST':
-
         nome = request.form['nome']
-        descricao = request.form['descriçao']
+        descricao = request.form['descricao']
         situacao = request.form['status']
-        data_criacao = request.form['data_criação']
+        data_criacao = request.form['prazo']
         prazo = request.form['prazo']
-        prioridade = request.args.get('prioridade')
+        prioridade = request.form['prioridade']
         palavra_chave = request.form['palavra_chave']
         categoria = request.form['categoria']
-        use_id = current_user._id
+        use_id = current_user.get_id()
 
-        """ banco de dados diretamente no código -  conn = conexao.connection.cursor()
-        conn.execute ("INSERT INTO tarefas(nome, descricao, situacao, data_criacao, prazo, prioridade, palavra_chave, categoria) VALUES(%s, %s, %s, %s, %s, %s, %s, %s)", (nome, descricao, situacao, data_criacao, prazo, prioridade, palavra_chave, categoria,))
-        conexao.connection.commit()
-        conn.close()"""
-
-        if use_id:
-            .atualizar_tarefas(id_tar, descricao, situacao, data_criacao, prazo, prioridade, palavra_chave, categoria)
-        else:
-            tarefas.save_tarefas(nome, descricao, situacao, data_criacao, prazo, prioridade, palavra_chave, categoria, use_id)
+        User.save_tarefas(nome, descricao, situacao, data_criacao, prazo, prioridade, palavra_chave, categoria, use_id)
 
     tarefas = None
-    if id_tar:
-        conn = obter_conexao()
-        cursor = conn.cursor(dictionary=True)    
-        cursor.execute('SELECT * FROM tb_tarefas where tar_id = %', (id_tar,))
-        tarefas = cursor.fetchone()
-        cursor.close()
-        conn.close()
-    return render_template("pages/criar_tarefa.html")
+    if current_user.is_authenticated:
+        tarefas = User.listar_tarefas(current_user.get_id())
+
+    return render_template("pages/criar_tarefa.html", tarefas=tarefas)
 
 @app.route('/atualizar_tarefa')
 def atualizar_tarefa():
@@ -104,9 +128,9 @@ def atualizar_tarefa():
     if request.method == 'POST':
 
         nome = request.form['nome']
-        descricao = request.form['descriçao']
+        descricao = request.form['descricao']
         situacao = request.form['status']
-        data_criacao = request.form['data_criação']
+        data_criacao = request.form['data_criacao']
         prazo = request.form['prazo']
         prioridade = request.form['prioridade']
         palavra_chave = request.form['palavra_chave']
@@ -155,3 +179,4 @@ def deletar():
 def logout():
     logout_user()
     return redirect(url_for('index'))
+    
