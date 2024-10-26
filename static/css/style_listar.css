@@ -1,7 +1,72 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap');
 
+.filtrar {
+    display: flex;
+    max-height: 300px;
+
+}
+.task-form {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    max-height: 300px;
+}
+
+
+.new-task-input6, .new-task-input5 {
+    display: flex;
+    width: 40%;
+}
+
+.task-form label {
+    font-size: 15px;
+    color: #333;
+    margin-left: 8px;
+    margin-bottom: 7px;
+    display: flex;
+}
+
+.task-form input, .task-form textarea, .task-form select {
+    width: 20%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 14px;
+}
+
+.task-form input[type="date"] {
+    font-size: 14px;
+}
+
+/* Centralizando o botão */
+.task-form .button-container {
+    display: flex;
+    justify-content: center;
+}
+
+.task-form button {
+    background-color: #512da8;
+    color: #fff;
+    font-size: 12px; /* Diminuir o tamanho da fonte */
+    padding: 8px 20px; /* Diminuir o padding */
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    width: auto; /* Remover a largura 100% */
+}
+
+.task-form button:hover {
+    background-color: #5c6bc0;
+}
 
 main {
     margin: 20px;
+    flex-direction: column;
 }
 
 table {
@@ -32,7 +97,6 @@ footer {
     width: 100%;
 }
 
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap');
 
 * {
     margin: 0;
