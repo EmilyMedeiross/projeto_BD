@@ -1,42 +1,3 @@
-<!--<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Listar Tarefas</title>
-    <link rel="stylesheet" href="static/css/style_listar.css">
-</head>
-<body>
-
-<header>
-    <h1>Sistema de Tarefas</h1>
-        <nav>
-            <ul>
-                <li> <a  href="{{url_for('login')}}">Login</a><a href="#"></a></li>
-                <li><a  href="{{url_for('register')}}">Cadastro</a><li>
-                <li><a  href="{{url_for('criar_tarefa')}}">Criar Tarefa</a><li>
-                <li><a  href="{{url_for('atualizar_tarefa')}}">Atualizar Tarefa</a><li></li>
-                <li><a  href="{{url_for('listar_tarefa')}}">Listar Tarefa</a><li></li>
-                
-            </ul>
-        </nav>
-</header>
-<main>
-   {% for tarefa in tarefas %}
-        {{tarefa}}
-    
-   {% endfor %}
-
-</main>
-
-<footer>
-    <p>Todos os direitos reservados &copy; 2024</p>
-</footer>
-
-
-</body>
-</html>-->
-
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -60,6 +21,49 @@
         </nav>
 </header>
 <main>
+    <div class="filtrar">
+        <h2>Filtrar</h2>
+        <form method="post" class="task-form" >
+            <input type="text" name="nome" placeholder="Nome da tarefa" class="new-task-input1">  
+               
+            <label for="descricao">Data de Criação</label>
+            <input type="date" name="prazo" placeholder="Data de criação" class="new-task-input5">
+                
+            <label for="descricao">Status</label>
+            <select id="status" required name="status" class="new-task-input3 select">
+                <option value="selecione">Selecione</option>
+                <option value="Concluida">Concluída</option>
+                <option value="Em andamento">Em andamento</option>
+                <option value="Pendente">Pendente</option>
+            </select>
+
+            
+            <label for="descricao">Prioridade</label>
+            <select id="prioridade" required name="prioridade" class="new-task-input6 select">
+                <option value="selecione">Selecione</option>
+                <option value="Baixa">Baixa</option>
+                <option value="Média">Média</option>
+                <option value="Alta">Alta</option>
+            </select>
+            
+            <input type="text" name="palavra_chave" placeholder="Palavra chave" class="new-task-input7">
+           
+        
+            <label for="descricao">Categoria</label>
+            <select id="categoria" required name="categoria" class="new-task-input select">
+                <option value="selecione">Selecione</option>
+                <option value="Trabalho">Trabalho</option>
+                <option value="Estudo">Estudo</option>
+                <option value="Pessoal">Pessoal</option>
+            </select>
+            <button class="new-task-button">Filtrar</button>
+            
+        </form>
+    </div>
+    <br>
+    <br>
+
+    <h2>Tarefas Criadas</h2>
     <table>
         <thead>
             <tr>
@@ -96,4 +100,3 @@
 
 </body>
 </html>
-
