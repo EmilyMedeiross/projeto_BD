@@ -30,8 +30,6 @@ class User(UserMixin):
             self._situacao = kwargs['situacao']
         if 'data_criacao' in kwargs.keys():
             self._data_criacao = kwargs['data_criacao']
-        # if 'prazo' in kwargs.keys():
-        #     self._prazo = kwargs['prazo']
         if 'prioridade' in kwargs.keys():
             self._prioridade = kwargs['prioridade']
         if 'palavra_chave' in kwargs.keys():
@@ -69,24 +67,53 @@ class User(UserMixin):
         conn.close()
         return True
 
-    def atualizar_tarefas(tar_id, descricao, situacao, data_criacao, prioridade, palavra_chave, categoria):
-        conn = obter_conexao()  
-        cursor = conn.cursor()
-        cursor.execute(
-             "UPDATE tb_tarefas SET tar_descricao = %s, tar_situacao = %s, tar_data_criacao = %s, tar_prioridade = %s, tar_palavra_chave = %s, tar_categoria = %s WHERE tar_id = %s",
-            (descricao, situacao, data_criacao, prioridade, palavra_chave, categoria, tar_id)
-        )
-        
-        conn.commit()
-        cursor.close()
-        conn.close()
-
-    
     @classmethod
-    def listar_tarefas(cls, use_id):
+    def atualizar_tarefas(cls, use_id, nome, descricao, situacao, data_criacao, prioridade, palavra_chave, categoria, tar_id):
         conn = obter_conexao()
         cursor = conn.cursor(dictionary=True)
-        cursor.execute("SELECT * FROM tb_tarefas WHERE tar_use_id = %s", (use_id,))
+
+        query = """
+        UPDATE tb_tarefas
+        SET tar_nome = %s, tar_descricao = %s, tar_situacao = %s,
+            tar_data_criacao = %s, tar_prioridade = %s,
+            tar_palavra_chave = %s, tar_categoria = %s
+        WHERE tar_id = %s AND tar_use_id = %s;
+        """
+        valores = (nome, descricao, situacao,
+                data_criacao, prioridade,
+                palavra_chave, categoria, tar_id, use_id)
+
+        cursor.execute(query, valores)
+        conn.commit()
+        conn.close()
+        return True
+
+    @classmethod
+    def listar_tarefas(cls, use_id, filtros=None):
+        conn = obter_conexao()
+        cursor = conn.cursor(dictionary=True)
+        
+        query = "SELECT * FROM tb_tarefas WHERE tar_use_id = %s"
+        params = [use_id]
+
+        if filtros:
+            if filtros.get('status'):
+                query += " AND tar_situacao = %s"
+                params.append(filtros['status'])
+            if filtros.get('data_criacao'):
+                query += " AND tar_data_criacao = %s"
+                params.append(filtros['data_criacao'])
+            if filtros.get('prioridade'):
+                query += " AND tar_prioridade = %s"
+                params.append(filtros['prioridade'])
+            if filtros.get('palavra_chave'):
+                query += " AND tar_palavra_chave LIKE %s"
+                params.append(f"%{filtros['palavra_chave']}%")
+            if filtros.get('categoria'):
+                query += " AND tar_categoria = %s"
+                params.append(filtros['categoria'])
+
+        cursor.execute(query, params)
         tarefas = cursor.fetchall()
         conn.close()
         return tarefas
