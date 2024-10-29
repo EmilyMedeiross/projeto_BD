@@ -27,7 +27,6 @@ def register():
         senha = request.form['senha'] 
         confsenha = request.form['confsenha']
 
-         # Verifica se a senha e a confirmação da senha são iguais
         if senha != confsenha:
             flash("As senhas não coincidem, por favor tente novamente.")
             return redirect(url_for('register'))
@@ -35,7 +34,6 @@ def register():
         if not User.exists(email):
             user = User(email=email, senha=senha)
             user.save()            
-            # 6 - logar o usuário após cadatro
             login_user(user) 
             flash("Cadastro realizado com sucesso")
             return redirect(url_for('login'))
@@ -43,7 +41,6 @@ def register():
         else:
             flash("Usuário já existe. Tente novamente.")
             return redirect(url_for('register'))
-        
     return render_template('pages/register.html')
 
 
@@ -57,7 +54,8 @@ def login():
         if user and check_password_hash(user['use_senha'], senha):
             login_user(User.get(user['use_id']))
             flash("Você está logado")
-            return render_template('pages/listar_tarefa.html')
+            return redirect(url_for('listar_tarefa'))
+           # return render_template('pages/listar_tarefa.html')
         
         else:
             flash("Dados incorretos")
@@ -88,8 +86,7 @@ def criar_tarefa():
     return render_template("pages/criar_tarefa.html", tarefas=tarefas)
 
 @app.route('/atualizar_tarefa', methods=['GET', 'POST'])
-@app.route('/atualizar_tarefa/<int:tar_id>', methods=['GET', 'POST'])
-def atualizar_tarefa(tar_id=None):
+def atualizar_tarefa():
 
     if request.method == 'POST':
 
@@ -97,13 +94,11 @@ def atualizar_tarefa(tar_id=None):
         descricao = request.form['descricao']
         situacao = request.form['status']
         data_criacao = request.form['data_criacao']
-       # prazo = request.form['prazo']
         prioridade = request.form['prioridade']
         palavra_chave = request.form['palavra_chave']
         categoria = request.form['categoria']
-
-        if tar_id:
-            User.atualizar_tarefa(tar_id, descricao, situacao, data_criacao, prioridade, palavra_chave, categoria)
+        tarefas = User( descricao, situacao, data_criacao, prioridade, palavra_chave, categoria)
+        tarefas.atualizar_tarefas()
 
     return render_template("pages/atualizar_tarefa.html")
 
@@ -113,11 +108,17 @@ def listar_tarefa():
     if not current_user.is_authenticated:
         return redirect(url_for('login'))
 
-    tarefas = User.listar_tarefas(current_user.get_id())
+    filtros = {}
+    if request.method == 'POST':
+        filtros['status'] = request.form.get('status')
+        filtros['data_criacao'] = request.form.get('data_criacao')
+        filtros['prioridade'] = request.form.get('prioridade')
+        filtros['palavra_chave'] = request.form.get('palavra_chave')
+        filtros['categoria'] = request.form.get('categoria')
+
+    tarefas = User.listar_tarefas(current_user.get_id(), filtros)
     return render_template('pages/listar_tarefa.html', tarefas=tarefas)
    
-
-
 @app.route('/deletar')
 def deletar():
     if request.method == 'POST':
