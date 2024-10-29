@@ -1,72 +1,56 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap');
 
-.filtrar {
+main {
+    margin: 20px;
     display: flex;
-    max-height: 300px;
-
-}
-.task-form {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
+    flex-direction: column;
     align-items: center;
-    max-height: 300px;
 }
 
-
-.new-task-input6, .new-task-input5 {
+.filter-form {
     display: flex;
-    width: 40%;
-}
-
-.task-form label {
-    font-size: 15px;
-    color: #333;
-    margin-left: 8px;
-    margin-bottom: 7px;
-    display: flex;
-}
-
-.task-form input, .task-form textarea, .task-form select {
-    width: 20%;
-    padding: 10px;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    width: 100%;
     margin-bottom: 20px;
+}
+
+.filter-group {
+    margin-right: 10px; /* Espaçamento entre os filtros */
+    flex: 1; /* Permite que os filtros cresçam */
+    min-width: 150px; /* Largura mínima */
+}
+
+.filter-form label {
+    font-size: 16px;
+    color: #333;
+    display: block;
+    margin-bottom: 5px;
+}
+
+.filter-form input, .filter-form select {
+    width: 100%;
+    padding: 10px;
     border: 1px solid #ccc;
     border-radius: 8px;
     font-size: 14px;
 }
 
-.task-form input[type="date"] {
-    font-size: 14px;
-}
-
-/* Centralizando o botão */
-.task-form .button-container {
-    display: flex;
-    justify-content: center;
-}
-
-.task-form button {
+button {
     background-color: #512da8;
     color: #fff;
-    font-size: 12px; /* Diminuir o tamanho da fonte */
-    padding: 8px 20px; /* Diminuir o padding */
+    font-size: 14px;
+    padding: 8px 20px;
     border: none;
     border-radius: 8px;
     font-weight: 600;
     text-transform: uppercase;
     cursor: pointer;
     transition: background-color 0.3s ease;
-    width: auto; /* Remover a largura 100% */
 }
 
-.task-form button:hover {
+button:hover {
     background-color: #5c6bc0;
-}
-
-main {
-    margin: 20px;
-    flex-direction: column;
 }
 
 table {
@@ -88,15 +72,20 @@ th {
 }
 
 footer {
-    background-color: #333;
+    background-color: #512da8;
     color: #fff;
+    padding: 15px;
     text-align: center;
-    padding: 10px;
-    position: absolute;
-    bottom: 0;
-    width: 100%;
+    font-size: 12px;
 }
 
+.butao_filtrar {
+    margin-top: 35px;
+    height: 30px;
+}
+
+
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap');
 
 * {
     margin: 0;
