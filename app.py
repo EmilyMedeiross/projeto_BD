@@ -85,8 +85,8 @@ def criar_tarefa():
 
     return render_template("pages/criar_tarefa.html", tarefas=tarefas)
 
-@app.route('/atualizar_tarefa', methods=['GET', 'POST'])
-def atualizar_tarefa():
+@app.route('/<int:id>/atualizar_tarefa', methods=['GET', 'POST'])
+def atualizar_tarefa(tar_id):
 
     if request.method == 'POST':
 
@@ -98,7 +98,7 @@ def atualizar_tarefa():
         palavra_chave = request.form['palavra_chave']
         categoria = request.form['categoria']
         
-        User.atualizar_tarefas(nome, descricao, situacao, data_criacao, prioridade, palavra_chave, categoria)
+        User.atualizar_tarefas(nome, descricao, situacao, data_criacao, prioridade, palavra_chave, categoria, tar_id)
 
     return render_template("pages/atualizar_tarefa.html")
 
