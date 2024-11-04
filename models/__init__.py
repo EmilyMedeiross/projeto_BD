@@ -77,27 +77,6 @@ class User(UserMixin):
         conn.commit()
         conn.close()
         return True
-        
-    @classmethod
-    def atualizar_tarefas(cls, use_id, nome, descricao, situacao, data_criacao, prioridade, palavra_chave, categoria, tar_id):
-        conn = obter_conexao()
-        cursor = conn.cursor(dictionary=True)
-
-        query = """
-        UPDATE tb_tarefas
-        SET tar_nome = %s, tar_descricao = %s, tar_situacao = %s,
-            tar_data_criacao = %s, tar_prioridade = %s,
-            tar_palavra_chave = %s, tar_categoria = %s
-        WHERE tar_id = %s AND tar_use_id = %s;
-        """
-        valores = (nome, descricao, situacao,
-                data_criacao, prioridade,
-                palavra_chave, categoria, tar_id, use_id)
-
-        cursor.execute(query, valores)
-        conn.commit()
-        conn.close()
-        return True
 
     @classmethod
     def listar_tarefas(cls, use_id, filtros=None):
