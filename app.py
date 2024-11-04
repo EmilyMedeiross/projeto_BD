@@ -97,8 +97,8 @@ def atualizar_tarefa():
         prioridade = request.form['prioridade']
         palavra_chave = request.form['palavra_chave']
         categoria = request.form['categoria']
-        tarefas = User( descricao, situacao, data_criacao, prioridade, palavra_chave, categoria)
-        tarefas.atualizar_tarefas()
+        
+        User.atualizar_tarefas(nome, descricao, situacao, data_criacao, prioridade, palavra_chave, categoria)
 
     return render_template("pages/atualizar_tarefa.html")
 
