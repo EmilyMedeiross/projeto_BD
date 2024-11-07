@@ -85,8 +85,8 @@ def criar_tarefa():
 
     return render_template("pages/criar_tarefa.html", tarefas=tarefas)
 
-@app.route('/<int:id>/atualizar_tarefa', methods=['GET', 'POST'])
-def atualizar_tarefa(tar_id):
+@app.route('/atualizar_tarefa', methods=['GET', 'POST'])
+def atualizar_tarefa():
 
     if request.method == 'POST':
 
@@ -97,8 +97,8 @@ def atualizar_tarefa(tar_id):
         prioridade = request.form['prioridade']
         palavra_chave = request.form['palavra_chave']
         categoria = request.form['categoria']
-        
-        User.atualizar_tarefas(nome, descricao, situacao, data_criacao, prioridade, palavra_chave, categoria, tar_id)
+        tarefas = User( descricao, situacao, data_criacao, prioridade, palavra_chave, categoria)
+        tarefas.atualizar_tarefas()
 
     return render_template("pages/atualizar_tarefa.html")
 
@@ -119,14 +119,16 @@ def listar_tarefa():
     tarefas = User.listar_tarefas(current_user.get_id(), filtros)
     return render_template('pages/listar_tarefa.html', tarefas=tarefas)
    
-@app.route('/deletar')
-def deletar():
-    if request.method == 'POST':
-      tarefa = request.form['tarefa']
-      tarefas = User(tarefa=tarefa)
-      tarefas.deletar_tarefas
-    return render_template("pages/deletar.html")
 
+
+@app.route('/deletar/<int:tar_id>', methods=['POST'])
+@login_required
+def deletar(tar_id):
+    tarefa = User() 
+    tarefa._id = tar_id  
+    tarefa.deletar_tarefas()  
+    flash("Tarefa excluída com sucesso!")
+    return redirect(url_for('listar_tarefa'))
 
 @app.route('/logout')
 @login_required
