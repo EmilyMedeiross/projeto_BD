@@ -84,13 +84,16 @@
                 <td>{{ tarefa.tar_prioridade }}</td>
                 <td>{{ tarefa.tar_palavra_chave }}</td>
                 <td>{{ tarefa.tar_categoria }}</td>
+                <td>
+                    <form action="{{ url_for('deletar', tar_id=tarefa.tar_id) }}" method="POST" style="display:inline;">
+                        <button type="submit" onclick="return confirm('Tem certeza que deseja excluir esta tarefa?');">Excluir</button>
+                    </form>
+                </td>
             </tr>
+           
             {% endfor %}
         </tbody>
     </table>
-    <a href="{{ url_for('deletar}}">
-         <button class="butao_filtrar">Excluir Tarefa</button>
-    </a>
 </main>
 
 <footer>
